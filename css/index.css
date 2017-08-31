@@ -1,10 +1,17 @@
 .navbar{
     margin: 0;
 }
-.jumbotron{
-    height: 500px;
+.body{
+    height: 550px;
     padding-top: 90px;
+    margin-bottom: 0;
 }
 .navbar-brand{
     font-size: 23px;
+}
+h2{
+    margin-bottom: 130px;
+}
+p{
+    margin-top: 20px;
 }
