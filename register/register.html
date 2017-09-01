@@ -36,7 +36,56 @@
         <div class="panel panel-heading">注册信息</div>
         <div class="panel-body">
             <form action="#">
-               
+               <div class="form-group">
+                  <div class="form-group">
+                      <label for="type">用户类型：</label>
+                      <select class="form-control" name="type" id="type">
+                          <option value="">学生</option>
+                          <option value="">老师</option>
+                          <option value="">管理员</option>
+                      </select>
+                  </div>
+               </div>
+                <div class="form-group">
+                    <label for="account">账号：</label>
+                    <input id="account" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码：</label>
+                    <input name="password" id="password" class="form-control" type="password">
+                </div>
+                <div class="form-group">
+                    <label for="re-password">确认密码：</label>
+                    <input  name="re-password" id="re-password" class="form-control" type="password">
+                </div>
+                <div class="form-group">
+                    <label for="number">学号：</label>
+                    <input name="number" id="number" class="form-control" type="number">
+                </div>
+                <div class="form-group">
+                    <label for="name">姓名：</label>
+                    <input name="name" id="name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="gender">性别：</label>
+                    <select class="form-control" name="gender" id="gender">
+                        <option value="">男</option>
+                        <option value="">女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="major">专业：</label>
+                    <input name="major" id="major" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="class">班级：</label>
+                    <input name="class" id="class" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-default" type="submit" value="提交注册">
+                    <input class="btn btn-default" type="reset" value="重置信息">
+                </div>
             </form>
         </div>
     </div>
