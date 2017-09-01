@@ -2,7 +2,7 @@
     margin: 0;
 }
 .body{
-    height: 550px;
+    height: 600px;
     padding-top: 90px;
     margin-bottom: 0;
 }
@@ -13,5 +13,9 @@ h2{
     margin-bottom: 130px;
 }
 p{
-    margin-top: 20px;
+    margin-top: 17px;
+}
+.foot{
+    position: absolute;
+    bottom: 20px;
 }
