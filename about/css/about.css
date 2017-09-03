@@ -1,0 +1,39 @@
+.navbar{
+    margin: 0;
+}
+.navbar-brand{
+    font-size: 23px;
+}
+.cpy-title{
+    font-size: 33px;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+.cpy-text{
+    color: rgba(60, 60, 60, 0.8);
+    font-size: 20px;
+}
+.cpy-text li{
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+.body{
+    margin-top: 40px;
+}
+.zhong{
+    background-image: url(../PC/bg-Miss.jpg);
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+.foot{
+    padding-top: 0;
+    height: 120px;
+    color: white;
+    background-color: #3c3c3c;
+    font-size: 13px;
+}
+.foot p{
+    position: relative;
+    top: 40px;
+}
+
