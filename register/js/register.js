@@ -20,7 +20,7 @@ $(document).ready(function () {
 
         var formData=$('form').serialize();
         $.post('http://localhost:8088/register',formData,function (data,status) {
-            
+
             $('.ajax').css('color','red').html(data);
         })
 
