@@ -15,4 +15,14 @@ $(document).ready(function () {
     });
 
 
+    $('#button').click(function (e) {
+        e.preventDefault();
+
+        var formData=$('form').serialize();
+        $.post('http://localhost:8088/register',formData,function (data,status) {
+            
+            $('.ajax').css('color','red').html(data);
+        })
+
+    })
 });
