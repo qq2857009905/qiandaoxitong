@@ -4,15 +4,26 @@
 var http=require('http');
 var querystring=require('querystring');
 var server = http.createServer(function (req,res) {
-        req.on('data',function (data) {
-            var stringData=decodeURIComponent(data)
-           console.log(querystring.parse(stringData));
-        })
+     if(req.url!='favicon.ico') {
+         var registerData='';
+         req.on('data',function (data) {
+                 if(req.url=='/register'&&req.method=='POST'){
+                 registerData+=data;
+             }
+         })
+
+         req.on('end',function () {
+             if(req.url=='/register'&&req.method=='POST'){
+
+
+                 console.log(decodeURI(registerData));
+             }
+         })
+
+     }
 })
 server.listen(8088);
-server.on('connectiong',function (socket) {
-    console.log('客户端已连接');
-})
+
 server.on('listening',function () {
     console.log('正在监听端口8088')
 })
