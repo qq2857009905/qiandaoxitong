@@ -3,8 +3,11 @@
  */
 var http=require('http');
 var querystring=require('querystring');
+var mysql=require('mysql');
 var server = http.createServer(function (req,res) {
     if(req.url!='favicon.ico'){
+
+        //注册信息表单验证
         var registerData='';
         req.on('data',function (data) {
             if (req.url == "/register" && req.method == 'POST') {
@@ -84,10 +87,65 @@ var server = http.createServer(function (req,res) {
                         errorMessage=errorMessage+'注册失败，请更正以上错误再提交。';
                     }
 
-                    //注册成功
+                    //通过了以上验证
                     if(errorMessage==''){
-                        errorMessage='注册成功';
-                        message='一位用户注册成功';
+                        //数据库验证
+                        var connection=mysql.createConnection({
+                            database:'qiandaoSystem',
+                            user:'root',
+                            password:'541402695'
+                        });
+
+                        connection.connect(function (err) {
+                            if(err){
+                                i=i+1;
+                                errorMessage=errorMessage+'错误 '+i+':与数据库连接失败'+'<br>';
+                                connection.end();
+                            }
+
+                            //数据库连接成功
+                            else {
+                                console.log('数据库连接成功')
+                            connection.query('SELECT * FROM person WHERE account=? OR number=?',[registerData.account,registerData.number],function (err,result) {
+                                if(err){
+                                    i=i+1;
+                                    errorMessage=errorMessage+'错误 '+i+':数据库查询失败'+'<br>';
+                                    connection.end();
+                                }
+
+                               if(result){
+                                    console.log('查询结果不为空'+result);
+
+                                   i=i+1;
+                                   errorMessage=errorMessage+'错误 '+i+':账号或学号已存在'+'<br>';
+                                   connection.end();
+                               }
+
+                               if(result==null){
+                                   console.log('开始插入数据库')
+                                   connection.query(
+                                       'INSERT INTO ' +
+                                       'person(account,password,number,name,gender,major,class,signIn,signInTime,type) ' +
+                                       'VALUES(?,?,?,?,?,?,?,?,?,?)',
+                                       [registerData.account,registerData.password,registerData.number,registerData.name,registerData.gender,
+                                           registerData.major,registerData.class,'否',null,registerData.type],
+                                       function (err,res) {
+                                           if(err){
+                                               i=i+1;
+                                               errorMessage=errorMessage+'错误 '+i+':插入数据库失败'+'<br>';
+                                           }
+
+                                           else {
+                                               errorMessage='注册成功,3秒后返回首页';
+                                               message='一位用户注册成功';
+                                           }
+                                       }
+                                   )
+                               }
+                            })
+                            }
+                        })
+
                     }
                     console.log(message);
 

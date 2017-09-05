@@ -20,8 +20,12 @@ $(document).ready(function () {
 
         var formData=$('form').serialize();
         $.post('http://localhost:8088/register',formData,function (data,status) {
-
             $('.ajax').css('color','red').html(data);
+            if(data=='注册成功,3秒后返回首页'){
+                setTimeout(function () {
+                    window.location.href='../index.html'
+                },3000);
+            }
         })
 
     })
