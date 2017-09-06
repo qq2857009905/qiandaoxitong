@@ -8,6 +8,7 @@
     <script src="../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse" role="navigation"> <!--导航栏-->
@@ -42,7 +43,7 @@
         </div>
 
         <div class="panel-body">
-            <form action="http://localhost:8088/login" method="post">
+            <form>
                 <div class="form-group ">
                     <label for="account">账号：</label>
                     <input name="account" id="account" type="text" class="form-control ">
@@ -53,9 +54,10 @@
                 </div>
 
                 <div class="form-group myBtnGroup">
-                    <input class="btn col-md-5 btn-default" type="submit" value="登陆">
+                    <input id="button" class="btn col-md-5 btn-default" type="submit" value="登陆">
                     <input class="btn col-md-5 col-md-push-2 btn-default" type="reset" value="重置">
                 </div>
+                <div class="ajax col-md-12"></div>
             </form>
         </div>
     </div>

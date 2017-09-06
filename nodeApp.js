@@ -27,48 +27,73 @@ var server = http.createServer(function (req,res) {
 
             //登陆表单验证
             if(req.url=='/login'&&req.method=='POST'){
+                loginData=querystring.parse(decodeURI(loginData));
+
                 var errorMessage='';
                 var i=0;
 
-                var connection=mysql.createConnection({
-                    database:'qiandaoSystem',
-                    user:'root',
-                    password:'541402695'
-                });
-
-                connection.connect(function (err) {
-                if(err){
+                console.log(loginData);
+                if(loginData.account==null){
                     i=i+1;
-                    errorMessage=errorMessage+'错误 '+i+':数据库连接失败'+'<br>';
+                    errorMessage=errorMessage+'错误 '+i+':账号不能为空'+'<br>';
                 }
 
-                else {
-                    connection.query('SELECT * FROM person WHERE account=?',[loginData.account],function (err,result) {
+                if(loginData.password==null){
+                    i=i+1;
+                    errorMessage=errorMessage+'错误 '+i+':密码不能为空'+'<br>';
+                }
+
+
+                if(loginData.account!=''&&loginData.password!=''){
+                    var connection=mysql.createConnection({
+                        database:'qiandaoSystem',
+                        user:'root',
+                        password:'541402695'
+                    });
+
+                    connection.connect(function (err) {
                         if(err){
                             i=i+1;
-                            errorMessage=errorMessage+'错误 '+i+':数据库查询失败'+'<br>';
+                            errorMessage=errorMessage+'错误 '+i+':数据库连接失败'+'<br>';
                         }
 
                         else {
-                            //验证用户是否存在
-                            if(result[0]==null){
-                                i=i+1;
-                                errorMessage=errorMessage+'错误 '+i+':用户名不存在'+'<br>';
-                            }
-                            //验证密码是否正确
-                            else {
-                                if(result.password!=loginData.password){
+                            connection.query('SELECT * FROM person WHERE account=?',[loginData.account],function (err,result) {
+                                if(err){
                                     i=i+1;
-                                    errorMessage=errorMessage+'错误 '+i+':密码错误'+'<br>';
+                                    errorMessage=errorMessage+'错误 '+i+':数据库查询失败'+'<br>';
                                 }
-                                if(result.password==loginData.password){
-                                    errorMessage='YES';
+
+                                else {
+                                    //验证用户是否存在
+                                   console.log(loginData.account);
+                                    console.log(result);
+                                    if(result[0]==null){
+                                        i=i+1;
+                                        errorMessage=errorMessage+'错误 '+i+':用户名不存在'+'<br>';
+                                    }
+                                    //验证密码是否正确
+                                    else {
+                                        if(result.password!=loginData.password){
+                                            i=i+1;
+                                            errorMessage=errorMessage+'错误 '+i+':密码错误'+'<br>';
+                                        }
+                                        if(result.password==loginData.password){
+                                            errorMessage='YES';
+                                        }
+                                    }
+
+                                    console.log('错误信息为：'+errorMessage);
+                                    res.setHeader("Access-Control-Allow-Origin", "*");
+                                    res.write(errorMessage);
+                                    res.end();
+
                                 }
-                            }
+                            })
                         }
-                    })
+                    });
                 }
-                });
+
             }
             //注册表单验证
                 if(req.url=="/register"&&req.method=='POST'){
